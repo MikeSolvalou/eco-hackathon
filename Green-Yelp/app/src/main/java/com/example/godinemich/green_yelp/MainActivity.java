@@ -9,7 +9,7 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
-    LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    LocationManager locationManager;
     Location userLocation;
 
     LocationListener locationListener = new LocationListener() {
@@ -31,12 +31,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.i("Test","test");
         //test comment
         onSearch();
     }
 
     protected void onSearch(){
         try{
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
             //run search algorithm to display restaurants
         }
