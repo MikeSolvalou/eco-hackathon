@@ -1,9 +1,12 @@
 package com.example.godinemich.green_yelp;
 
+import android.Manifest;
 import android.content.Context;
 import android.location.LocationManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.content.pm.PackageManager;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
             userLocation = location;
             Log.i("Latitude",userLocation.getLatitude() + "");
             Log.i("Longitude",userLocation.getLongitude() + "");
+            TextView txt = (TextView)findViewById(R.id.txt);
+            txt.setText(userLocation.getLatitude() + ", " + userLocation.getLongitude());
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -46,13 +51,21 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onSearch(){
         try{
+            if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED){
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            TextView txt = (TextView) findViewById(R.id.txt);
+            txt.setText("Worked");}
+            else Log.i("Test","Not working");
             //run search algorithm to display restaurants
         }
         catch(SecurityException ex){
             //do something
+            Log.i("Test", ex.getMessage());
             Log.i("Test","Permission failed");
+            TextView txt = (TextView)findViewById(R.id.txt);
+            txt.setText("Failed");
         }
 
     }
