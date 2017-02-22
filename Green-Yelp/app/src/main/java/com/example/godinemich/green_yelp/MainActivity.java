@@ -4,8 +4,14 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.widget.Button;
+import android.widget.TextView;
+import android.view.View;
+
 import android.location.*;
 import android.util.Log;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Log.i("Test","test");
         //test comment
-        onSearch();
+
+        mainMenu();
     }
 
     protected void onSearch(){
@@ -46,5 +54,22 @@ public class MainActivity extends AppCompatActivity {
             //do something
             Log.i("Test","Permission failed");
         }
+
     }
+
+
+    public void mainMenu(){
+        setContentView(R.layout.activity_main);     //splash screen
+
+        //connect splash screen buttons
+        Button btn1=(Button)findViewById(R.id.button);
+        btn1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                onSearch();
+            }
+        });
+
+    }
+
 }
