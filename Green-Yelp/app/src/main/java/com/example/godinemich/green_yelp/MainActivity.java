@@ -77,9 +77,24 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                onSearch();
+                //onSearch();
+                showResults();
             }
         });
+    }
+
+    /**Display results screen*/
+    public void showResults(){
+        setContentView(R.layout.results_page);     //results screen
+
+        //connect UI elements
+        TextView txt1=(TextView)findViewById(R.id.textView1);
+        TextView txt2=(TextView)findViewById(R.id.textView2);
+        TextView txt3=(TextView)findViewById(R.id.textView3);
+
+        txt1.setText("Result1");
+        txt2.setText("Result2");
+        txt3.setText("Result3");
 
     }
 }
