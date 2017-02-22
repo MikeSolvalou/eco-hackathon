@@ -37,13 +37,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
         Log.i("Test","test");
-        //test comment
 
         mainMenu();
     }
 
+    /**Display main menu screen.*/
+    public void mainMenu(){
+        setContentView(R.layout.activity_main);     //main menu screen
+
+        //connect main menu screen buttons
+        Button btn1=(Button)findViewById(R.id.button);
+        btn1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                onSearch();
+            }
+        });
+
+    }
+
+    /***/
     protected void onSearch(){
         try{
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -56,20 +70,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
-    public void mainMenu(){
-        setContentView(R.layout.activity_main);     //splash screen
-
-        //connect splash screen buttons
-        Button btn1=(Button)findViewById(R.id.button);
-        btn1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                onSearch();
-            }
-        });
-
-    }
-
 }
