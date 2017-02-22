@@ -42,13 +42,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
         Log.i("Test","test");
-        //test comment
 
         mainMenu();
     }
-
+    
     protected void onSearch(){
         try{
             if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
@@ -70,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**Display main menu screen.*/
     public void mainMenu(){
-        setContentView(R.layout.activity_main);     //splash screen
+        setContentView(R.layout.activity_main);     //main menu screen
 
-        //connect splash screen buttons
+        //connect main menu screen buttons
         Button btn1=(Button)findViewById(R.id.button);
         btn1.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -84,5 +82,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 }
