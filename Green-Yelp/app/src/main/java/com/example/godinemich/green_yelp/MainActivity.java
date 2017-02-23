@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.content.pm.PackageManager;
 
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
 
@@ -90,16 +92,30 @@ public class MainActivity extends AppCompatActivity {
 
     /**Display results screen*/
     public void showResults(){
-        setContentView(R.layout.results_page);     //results screen
+        setContentView(R.layout.restresults);     //results screen
+        LinearLayout layout = (LinearLayout)findViewById(R.id.linLayout);
 
-        //connect UI elements
-        TextView txt1=(TextView)findViewById(R.id.textView1);
-        TextView txt2=(TextView)findViewById(R.id.textView2);
-        TextView txt3=(TextView)findViewById(R.id.textView3);
+        for(int i = 0; i < sortedRestaurants.size(); i++){
+            Restaurant r = sortedRestaurants.get(i);
+            LinearLayout innerLayout = new LinearLayout(this);
+            innerLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        txt1.setText("Result1");
-        txt2.setText("Result2");
-        txt3.setText("Result3");
+//            ImageView pic = new ImageView(this);
+//            pic.setImageBitmap();
+            TextView txt = new TextView(this);
+            txt.setText(r.getName() + "\n" + r.getDescription() + "\n" + r.getAddress());
+            innerLayout.addView(txt);
+            layout.addView(innerLayout);
+       }
+//
+//        //connect UI elements
+//        TextView txt1=(TextView)findViewById(R.id.textView1);
+//        TextView txt2=(TextView)findViewById(R.id.textView2);
+//        TextView txt3=(TextView)findViewById(R.id.textView3);
+//
+//        txt1.setText("Result1");
+//        txt2.setText("Result2");
+//        txt3.setText("Result3");
 
     }
 
