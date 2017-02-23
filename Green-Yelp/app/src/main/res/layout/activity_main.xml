@@ -10,12 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.godinemich.green_yelp.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        android:id="@+id/txt" />
-
     <Button
         android:text="Go"
         android:layout_width="wrap_content"

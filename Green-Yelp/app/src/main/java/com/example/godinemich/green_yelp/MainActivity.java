@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     public void showResults(){
         setContentView(R.layout.restresults);     //results screen
         LinearLayout layout = (LinearLayout)findViewById(R.id.linLayout);
+        layout.removeAllViews();
 
         for(int i = 0; i < sortedRestaurants.size(); i++){
             Restaurant r = sortedRestaurants.get(i);
