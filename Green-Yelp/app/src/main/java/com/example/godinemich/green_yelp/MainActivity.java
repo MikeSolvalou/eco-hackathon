@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout)findViewById(R.id.linLayout);
         layout.removeAllViews();
 
-        for(int i = 0; i < sortedRestaurants.size(); i++){
+        for(int i = 0; i < sortedRestaurants.size(); i++) {
             Restaurant r = sortedRestaurants.get(i);
             LinearLayout innerLayout = new LinearLayout(this);
             innerLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -104,19 +104,10 @@ public class MainActivity extends AppCompatActivity {
 //            ImageView pic = new ImageView(this);
 //            pic.setImageBitmap();
             TextView txt = new TextView(this);
-            txt.setText(r.getName() + "\n" + r.getDescription() + "\n" + r.getAddress());
+            txt.setText(r.getName() + "\n" + r.getDescription() + "\n" + r.getAddress() + "\n\n");
             innerLayout.addView(txt);
             layout.addView(innerLayout);
-       }
-//
-//        //connect UI elements
-//        TextView txt1=(TextView)findViewById(R.id.textView1);
-//        TextView txt2=(TextView)findViewById(R.id.textView2);
-//        TextView txt3=(TextView)findViewById(R.id.textView3);
-//
-//        txt1.setText("Result1");
-//        txt2.setText("Result2");
-//        txt3.setText("Result3");
+        }
 
     }
 
@@ -154,15 +145,12 @@ public class MainActivity extends AppCompatActivity {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         try{
             locationManager.requestLocationUpdates(GPS_PROVIDER, 0, 0, locationListener);
-            TextView txt = (TextView) findViewById(R.id.txt);
             userLocation = locationManager.getLastKnownLocation(GPS_PROVIDER);
             searchRestaurants();
         }
         catch(SecurityException ex){
             Log.i("Test", ex.getMessage());
             Log.i("Test","Permission failed");
-            TextView txt = (TextView)findViewById(R.id.txt);
-            txt.setText("Failed");
         }
     }
 
