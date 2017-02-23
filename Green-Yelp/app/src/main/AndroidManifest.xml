@@ -5,6 +5,7 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        <uses-feature android:name="android.hardware.location.gps" />
     </application>
 
 </manifest>
