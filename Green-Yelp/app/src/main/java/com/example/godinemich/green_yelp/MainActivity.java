@@ -3,6 +3,7 @@ package com.example.godinemich.green_yelp;
 import android.Manifest;
 import android.content.Context;
 import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,20 +16,26 @@ import android.view.View;
 import android.location.*;
 import android.util.Log;
 
+import static android.location.LocationManager.GPS_PROVIDER;
+
 
 public class MainActivity extends AppCompatActivity {
 
     LocationManager locationManager;
     Location userLocation;
+    double testLat = -41.29473679909909;
+    double testLong = 174.77428436529294;
+    static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-            // Called when a new location is found by the network location provider.
-            userLocation = location;
-            Log.i("Latitude",userLocation.getLatitude() + "");
-            Log.i("Longitude",userLocation.getLongitude() + "");
-            TextView txt = (TextView)findViewById(R.id.txt);
-            txt.setText(userLocation.getLatitude() + ", " + userLocation.getLongitude());
+//            Log.i("Test","location changed");
+//            // Called when a new location is found by the network location provider.
+//            userLocation = location;
+//            Log.i("Latitude",userLocation.getLatitude() + "");
+//            Log.i("Longitude",userLocation.getLongitude() + "");
+//            TextView txt = (TextView)findViewById(R.id.txt);
+//            txt.setText(userLocation.getLatitude() + ", " + userLocation.getLongitude());
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -41,29 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mainMenu();
-    }
-    
-    protected void onSearch(){
-        try{
-            if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED){
-            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            TextView txt = (TextView) findViewById(R.id.txt);
-            txt.setText("Worked");}
-            else Log.i("Test","Not working");
-            //run search algorithm to display restaurants
-        }
-        catch(SecurityException ex){
-            //do something
-            Log.i("Test", ex.getMessage());
-            Log.i("Test","Permission failed");
-            TextView txt = (TextView)findViewById(R.id.txt);
-            txt.setText("Failed");
-        }
-
     }
 
     /**Display main menu screen.*/
@@ -94,5 +79,58 @@ public class MainActivity extends AppCompatActivity {
         txt2.setText("Result2");
         txt3.setText("Result3");
 
+    }
+
+    protected void onSearch(){
+        Log.i("Search","1");
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.i("Permission", "1");
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            }
+        else{
+            getLocation();
+        }
+}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                Log.i("Permission", "5");
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                } else {
+                    Log.i("Test", "Permission denied");
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    private void getLocation(){
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        Log.i("is enabled",String.valueOf(locationManager.isProviderEnabled(GPS_PROVIDER)));
+        try{
+            locationManager.requestLocationUpdates(GPS_PROVIDER, 0, 0, locationListener);
+            TextView txt = (TextView) findViewById(R.id.txt);
+            userLocation = locationManager.getLastKnownLocation(GPS_PROVIDER);
+            Log.i("Latitude",userLocation.getLatitude() + "");
+            Log.i("Longitude",userLocation.getLongitude() + "");
+            txt.setText("Lat: " + userLocation.getLatitude() + ", Long: " + userLocation.getLongitude());
+            //run search method
+        }
+        catch(SecurityException ex){
+            Log.i("Test", ex.getMessage());
+            Log.i("Test","Permission failed");
+            TextView txt = (TextView)findViewById(R.id.txt);
+            txt.setText("Failed");
+        }
     }
 }
