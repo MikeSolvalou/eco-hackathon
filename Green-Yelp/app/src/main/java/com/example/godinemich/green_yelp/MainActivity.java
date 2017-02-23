@@ -16,6 +16,8 @@ import android.view.View;
 import android.location.*;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import static android.location.LocationManager.GPS_PROVIDER;
 
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     double testLat = -41.29473679909909;
     double testLong = 174.77428436529294;
     static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
 
     LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
