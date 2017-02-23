@@ -11,6 +11,7 @@ public class Restaurant {
     private String description;
     private double latitude;
     private double longitude;
+    private double distance;
 
     public Restaurant(String name, String address, String description, double latitude, double longitude) {
         this.name = name;
@@ -39,4 +40,7 @@ public class Restaurant {
     public double getLongitude() {
         return longitude;
     }
+
+    public double getDistance() {return distance;}
+    public void setDistance(double d) {distance = d;}
 }
