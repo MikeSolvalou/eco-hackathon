@@ -16,6 +16,9 @@ import android.view.View;
 import android.location.*;
 import android.util.Log;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import static android.location.LocationManager.GPS_PROVIDER;
 
 
@@ -48,7 +51,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadRestaurants();
         mainMenu();
+    }
+
+
+    //list of restaurants
+    List<Restaurant> restaurants=new ArrayList<Restaurant>();
+
+    /**load dummy restaurant data into field "restaurants"*/
+    public void loadRestaurants(){
+        //load dummy data
+        restaurants.add(new Restaurant("Cafe Delicious","ABC St, Wellington","Vegetarian Restaurant",-41.291003,174.776764));
+        restaurants.add(new Restaurant("Cafe Appetit","DEF St, Wellington","Gluten-Free Restaurant",-41.284111,174.776051));
+        restaurants.add(new Restaurant("Cafe Yum","GHI St, Wellington","All Organic Restaurant",-41.297101,174.782653));
     }
 
     /**Display main menu screen.*/
@@ -60,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //onSearch();
-                showResults();
+
+                //onSearch(); //stores sorted list of nearby restaurants in global field
+                showResults();//shows sorted list of restaurants made by onsearch()
             }
         });
     }
